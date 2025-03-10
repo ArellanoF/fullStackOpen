@@ -1,17 +1,12 @@
 const mongoose = require("mongoose");
 
-if (process.argv.length < 3) {
-  console.log(
-    "Please provide the password as an argument: node mongo.js <password>"
-  );
-  process.exit(1);
-}
+mongoose.set("strictQuery", false); 
 
-const password = process.argv[2];
+const url = `mongodb+srv://fullstack:${password}@cluster0.4za0n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-const url = `mongodb+srv://fullstack:${password}@cluster0.evgwn.mongodb.net/phonebookApp?retryWrites=true&w=majority`;
-
-mongoose.connect(url);
+mongoose.connect(url)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("Error connecting to MongoDB:", err));
 
 const personSchema = new mongoose.Schema({
   name: String,
